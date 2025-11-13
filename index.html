@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Watcher — Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="Watcher" class="logo" />
+        <div class="brand-text">
+          <h1>The Watcher</h1>
+          <small>Daily site checks</small>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button id="tab-daily" class="nav-btn active">Daily Checks</button>
+        <button id="tab-websites" class="nav-btn">Website Links</button>
+        <button id="tab-report" class="nav-btn">Generate Report</button>
+      </nav>
+
+      <div class="auth-area" id="auth-area">
+        <div id="user-info" class="hidden">
+          <div id="user-email" class="user-email"></div>
+          <button id="signout" class="small-btn">Sign out</button>
+        </div>
+
+        <div id="auth-forms">
+          <input id="email" type="email" placeholder="Email" />
+          <input id="password" type="password" placeholder="Password" />
+          <div class="auth-actions">
+            <button id="btn-login" class="small-btn">Log in</button>
+            <button id="btn-signup" class="small-btn outline">Sign up</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <!-- DAILY -->
+      <section id="panel-daily" class="panel">
+        <div class="card hero">
+          <h2>Ready for Today's checks?</h2>
+          <p>Press <strong>Get started</strong> to open the first site and complete the manual checks.</p>
+          <button id="start-checks" class="cta">Get started</button>
+        </div>
+
+        <div id="checker" class="card hidden">
+          <div class="checker-header">
+            <div id="current-index"></div>
+            <div id="site-title" class="site-title"></div>
+            <a id="open-site" class="link" target="_blank" rel="noopener">Open site</a>
+          </div>
+
+          <form id="check-form" class="check-form">
+            <label>Is the site live?
+              <select id="status_live">
+                <option value="">--Choose--</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </label>
+
+            <label>Is core functionality working? (forms, bookings)
+              <select id="status_functional">
+                <option value="">--Choose--</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </label>
+
+            <label>Form submission works?
+              <select id="form_submission">
+                <option value="">--Choose--</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </label>
+
+            <label>Load time / Response (type)
+              <input id="load_time" placeholder="e.g., 1.2s or slow" />
+            </label>
+
+            <label>Notes / Observations
+              <textarea id="notes" placeholder="Add what you observed..."></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button type="button" id="skip-site" class="small-btn outline">Skip</button>
+              <button type="submit" id="submit-check" class="small-btn">Submit & Next</button>
+              <button type="button" id="stop-checks" class="small-btn grey">Stop</button>
+            </div>
+          </form>
+
+          <div id="session-summary" class="summary"></div>
+        </div>
+
+        <div id="recent-card" class="card">
+          <h3>Recent checks</h3>
+          <div id="recent-list"></div>
+        </div>
+      </section>
+
+      <!-- WEBSITES -->
+      <section id="panel-websites" class="panel hidden">
+        <div class="card">
+          <h2>Website Links</h2>
+
+          <form id="add-site-form" class="row">
+            <input id="site-name" placeholder="Name (optional)" />
+            <input id="site-url" placeholder="https://example.com" />
+            <button type="submit" class="small-btn">Add</button>
+          </form>
+
+          <div id="sites-list" class="sites-list"></div>
+        </div>
+      </section>
+
+      <!-- REPORT -->
+      <section id="panel-report" class="panel hidden">
+        <div class="card">
+          <h2>Generate Report</h2>
+          <label>Choose date
+            <input type="date" id="report-date" />
+          </label>
+          <div class="report-actions">
+            <button id="generate-report" class="small-btn">Generate</button>
+            <button id="download-report" class="small-btn outline">Download PDF</button>
+          </div>
+
+          <div id="report-output" class="report-output"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="supabase.js"></script>
+  <script type="module" src="utils.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
